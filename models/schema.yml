@@ -204,6 +204,7 @@ models:
             - average_basket
             - margin
             - operational_margin
+
   - name: int_campaigns
     tests:
       - unique:
@@ -231,3 +232,14 @@ models:
         description: nombre d'impressions
       - name: click
         description: nombre de clicks
+    
+  - name: int_campaigns_day
+    tests: 
+      - unique:
+          column_name: "date_date"
+      - not_null:
+          column_name:
+            - ads_cost
+            - ads_impression
+            - ads_cliks
+    description: regroupe les coûts des ads par jours
