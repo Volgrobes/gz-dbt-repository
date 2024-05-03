@@ -1,0 +1,122 @@
+version: 2
+
+sources: 
+  - name: gz_raw_data
+    description: raw data from Circle
+    tables: 
+      - name: product
+        identifier: raw_gz_product
+        description: purchase price for all product_id
+        columns:
+          - name: products_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: purchase_price
+            description: products price
+      - name: sales
+        freshness: 
+          warn_after: {count: 90, period: day}
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        identifier: raw_gz_sales
+        description: orders informations
+        columns:
+          - name: data_date
+            description: purchase date
+          - name: orders_id
+            description: orders id 
+          - name: pdt_id
+            description: products id
+          - name: revenue
+            description: orders total price 
+          - name: quantity
+            description: products daty purchased
+        tests:
+          - unique:
+              column_name: "(orders_id || '_' || pdt_id)"
+      - name: ship
+        identifier: raw_gz_ship
+        description: shipping information
+        columns:
+          - name: orders_id
+            description: orders id
+            tests:
+              - unique
+              - not_null
+          - name: shipping_fee
+            description: shipping cost
+          - name: logcost
+            description: logcost
+          - name: ship_cost
+            description: ship cost
+
+
+models:
+  - name: int_sales_margin
+    tests: 
+      - unique: 
+          column_name: "(orders_id || '_' || products_id)"
+      - not_null:
+          column_name: 
+            - orders_id
+            - products_id
+            - margin
+            - purchase_cost
+            - date_date
+            - revenue
+            - quantity
+
+  - name: int_orders_margin
+    tests:
+      - unique: 
+          column_name: "orders_id"
+      - not_null:
+          column_name:
+            - date_date
+            - revenue
+            - quantity
+            - purchase_cost
+            - margin
+    description: margin calcultation per order 
+    columns:
+      - name: order_id
+        description: primary key
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price 
+      - name: date_date
+        description: date of the order
+      - name: revenue
+        description: sum of revenue per order 
+      - name: quantity
+        description: sum of quantity per order
+
+  - name: int_orders_operational
+    tests:
+      - unique: 
+          column_name: "orders_id"
+      - not_null:
+          column_name:
+            - date_date
+            - operational_margin
+            - quantity
+            - revenue
+            - purchase_cost
+            - margin
+            - shipping_fee
+            - logcost
+            - ship_cost
+
+  - name: finance_days
+    tests:
+      - unique:
+          column_name: "date_date"
+      - not_null:
+          column_name:
+            - nb_transaction
+            - revenue
+            - average_basket
+            - margin
+            - operational_margin
