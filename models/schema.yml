@@ -204,3 +204,30 @@ models:
             - average_basket
             - margin
             - operational_margin
+  - name: int_campaigns
+    tests:
+      - unique:
+          column_name: "(date_date || '_' || campaign_key)"
+      - not_null:
+          column_name:
+            - paid_source
+            - campaign_name
+            - ads_cost
+            - impression
+            - click
+    description: regroupe toutes les infos des campagnes de pub 
+    columns:
+      - name: date_date
+        description: date
+      - name: paid_source
+        description: source du paiement
+      - name: campaign_key
+        description: clef de la campagne
+      - name: camPGN_name
+        description: nom de la campagne
+      - name: ads_cost
+        description: coût de la campagne
+      - name: impression
+        description: nombre d'impressions
+      - name: click
+        description: nombre de clicks
