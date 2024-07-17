@@ -50,6 +50,90 @@ sources:
             description: logcost
           - name: ship_cost
             description: ship cost
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: adwords informations
+        columns:
+          - name: date_date
+            description: date
+          - name: paid_source
+            description: source du paiement
+          - name: campaign_key
+            description: clef de la campagne
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: coût de la campagne
+          - name: impression
+            description: nombre d'impressions
+          - name: click
+            description: nombre de clicks
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || campaign_key)"
+      - name: bing
+        identifier: raw_gz_bing
+        description: bing informations
+        columns:
+          - name: date_date
+            description: date
+          - name: paid_source
+            description: source du paiement
+          - name: campaign_key
+            description: clef de la campagne
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: coût de la campagne
+          - name: impression
+            description: nombre d'impressions
+          - name: click
+            description: nombre de clicks
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || campaign_key)"
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: criteo informations
+        columns:
+          - name: date_date
+            description: date
+          - name: paid_source
+            description: source du paiement
+          - name: campaign_key
+            description: clef de la campagne
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: coût de la campagne
+          - name: impression
+            description: nombre d'impressions
+          - name: click
+            description: nombre de clicks
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || campaign_key)"
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: facebook informations
+        columns:
+          - name: date_date
+            description: date
+          - name: paid_source
+            description: source du paiement
+          - name: campaign_key
+            description: clef de la campagne
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: coût de la campagne
+          - name: impression
+            description: nombre d'impressions
+          - name: click
+            description: nombre de clicks
+        tests:
+          - unique:
+              column_name: "(date_date || '_' || campaign_key)"
 
 models:
   - name: int_sales_margin
