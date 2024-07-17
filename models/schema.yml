@@ -288,7 +288,7 @@ models:
         tests:
           - not_null
 
-  - name: int_campaings_days
+  - name: int_campaingns_days
     description: regroupe les coûts des ads par jours
     columns:
       - name: date_date
