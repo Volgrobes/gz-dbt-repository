@@ -255,3 +255,35 @@ models:
       - name: operational_margin
         tests:
           - not_null
+
+  - name: int_campaings
+    description: data from all campaigns
+    columns:
+      - name: "(date_date || '_' || campaign_key)"
+        description: primary key
+        tests:
+          - unique
+      - name: paid_source
+        description: source du paiement
+        tests:
+          - not_null
+      - name: campaign_name
+        description: nom de la campagne
+        tests:
+          - not_null
+      - name: ads_cost
+        description: coût de la campagne
+        tests:
+          - not_null
+      - name: impression
+        description: nombre d'impressions
+        tests:
+          - not_null
+      - name: click
+        description: nombre de clicks
+        tests:
+          - not_null
+      - name: date_date
+        description: date
+        tests:
+          - not_null
