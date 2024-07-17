@@ -50,3 +50,73 @@ sources:
             description: logcost
           - name: ship_cost
             description: ship cost
+
+
+models:
+  - name: int_sales_margin
+    tests: 
+      - unique: 
+          column_name: "(orders_id || '_' || products_id)"
+      - not_null:
+          column_name: 
+            - orders_id
+            - products_id
+            - margin
+            - purchase_cost
+            - date_date
+            - revenue
+            - quantity
+
+  - name: int_orders_margin
+    tests:
+      - unique: 
+          column_name: "orders_id"
+      - not_null:
+          column_name:
+            - date_date
+            - revenue
+            - quantity
+            - purchase_cost
+            - margin
+    description: margin calcultation per order 
+    columns:
+      - name: order_id
+        description: primary key
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price 
+      - name: date_date
+        description: date of the order
+      - name: revenue
+        description: sum of revenue per order 
+      - name: quantity
+        description: sum of quantity per order
+
+  - name: int_orders_operational
+    tests:
+      - unique: 
+          column_name: "orders_id"
+      - not_null:
+          column_name:
+            - date_date
+            - operational_margin
+            - quantity
+            - revenue
+            - purchase_cost
+            - margin
+            - shipping_fee
+            - logcost
+            - ship_cost
+
+  - name: finance_days
+    tests:
+      - unique:
+          column_name: "date_date"
+      - not_null:
+          column_name:
+            - nb_transaction
+            - revenue
+            - average_basket
+            - margin
+            - operational_margin
