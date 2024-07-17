@@ -1,0 +1,52 @@
+version: 2
+
+sources: 
+  - name: gz_raw_data
+    description: raw data from Circle
+    tables: 
+      - name: product
+        identifier: raw_gz_product
+        description: purchase price for all product_id
+        columns:
+          - name: products_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: purchase_price
+            description: products price
+      - name: sales
+        freshness: 
+          warn_after: {count: 90, period: day}
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        identifier: raw_gz_sales
+        description: orders informations
+        columns:
+          - name: data_date
+            description: purchase date
+          - name: orders_id
+            description: orders id 
+          - name: pdt_id
+            description: products id
+          - name: revenue
+            description: orders total price 
+          - name: quantity
+            description: products daty purchased
+        tests:
+          - unique:
+              column_name: "(orders_id || '_' || pdt_id)"
+      - name: ship
+        identifier: raw_gz_ship
+        description: shipping information
+        columns:
+          - name: orders_id
+            description: orders id
+            tests:
+              - unique
+              - not_null
+          - name: shipping_fee
+            description: shipping cost
+          - name: logcost
+            description: logcost
+          - name: ship_cost
+            description: ship cost
