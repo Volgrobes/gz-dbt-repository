@@ -256,7 +256,7 @@ models:
         tests:
           - not_null
 
-  - name: int_campaings
+  - name: int_campaigns
     description: data from all campaigns
     columns:
       - name: "(date_date || '_' || campaign_key)"
