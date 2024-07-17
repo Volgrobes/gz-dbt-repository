@@ -2,7 +2,7 @@ version: 2
 
 sources: 
   - name: gz_raw_data
-    description: raw data from Circle
+    description: raw data from Greenweez
     tables: 
       - name: product
         identifier: raw_gz_product
@@ -40,7 +40,7 @@ sources:
         description: shipping information
         columns:
           - name: orders_id
-            description: orders id
+            description: orders id - Pkey
             tests:
               - unique
               - not_null
